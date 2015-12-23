@@ -33,3 +33,22 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.title
+        
+        
+class Bookmate(db.model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    url = db.Column(db.Text)
+    description = db.Column(db.Text)
+    tag = db.Column(db.Integer, db.ForeignKey('tag.id'))
+    
+    
+class Tag(db.model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    category = db.Column(db.Integer, db.ForeignKey('category.id'))
+    
+    
+class Category(db.model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
