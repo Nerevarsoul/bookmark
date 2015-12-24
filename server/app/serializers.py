@@ -1,13 +1,14 @@
-from marshmallow import Serializer, fields
+from marshmallow import Schema, fields # , ValidationError, pre_load
 
 
-class UserSerializer(Serializer):
-    class Meta:
-        fields = ("id", "email")
+class UserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    email = fields.Str()
 
 
-class PostSerializer(Serializer):
-    user = fields.Nested(UserSerializer)
-
-    class Meta:
-        fields = ("id", "title", "body", "user", "created_at")
+class PostSchema(Schema):
+    id = fields.Int(dump_only=True)
+    title = fields.Str()
+    body = fields.Str()
+    user = fields.Nested(UserSchema)
+    created_at = fields.DateTime(dump_only=True)
