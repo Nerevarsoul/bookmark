@@ -12,3 +12,7 @@ class PostSchema(Schema):
     body = fields.Str()
     user = fields.Nested(UserSchema)
     created_at = fields.DateTime(dump_only=True)
+    
+    
+user_schema = UserSchema()
+post_schema = PosrSchema()
