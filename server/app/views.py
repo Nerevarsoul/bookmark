@@ -4,7 +4,7 @@ from flask.ext import restful
 from server import api, db, flask_bcrypt, auth
 from models import User, Post
 from forms import UserCreateForm, SessionCreateForm, PostCreateForm
-from serializers import UserSerializer, PostSerializer
+from serializers import user_schema, post_schema
 
 
 @auth.verify_password
@@ -25,7 +25,8 @@ class UserView(restful.Resource):
         user = User(form.email.data, form.password.data)
         db.session.add(user)
         db.session.commit()
-        return UserSerializer(user).data
+        result = user_schema.dump(user)
+        return jsonify(result.data)
 
 
 class SessionView(restful.Resource):
@@ -36,14 +37,16 @@ class SessionView(restful.Resource):
 
         user = User.query.filter_by(email=form.email.data).first()
         if user and flask_bcrypt.check_password_hash(user.password, form.password.data):
-            return UserSerializer(user).data, 201
+            result = user_schema.dump(user)
+            return jsonify(result.data), 201
         return '', 401
 
 
 class PostListView(restful.Resource):
     def get(self):
         posts = Post.query.all()
-        return PostSerializer(posts, many=True).data
+        result = post_schema.dump(posts)
+        return jsonify(result.data)
 
     @auth.login_required
     def post(self):
@@ -53,13 +56,15 @@ class PostListView(restful.Resource):
         post = Post(form.title.data, form.body.data)
         db.session.add(post)
         db.session.commit()
-        return PostSerializer(post).data, 201
+        result = post_schema.dump(post)
+        return jsonify(result.data), 201
 
 
 class PostView(restful.Resource):
     def get(self, id):
         posts = Post.query.filter_by(id=id).first()
-        return PostSerializer(posts).data
+        result = post_schema.dump(post)
+        return jsonify(result.data)
 
 
 api.add_resource(UserView, '/api/v1/users')
