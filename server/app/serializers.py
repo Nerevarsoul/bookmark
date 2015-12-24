@@ -14,5 +14,5 @@ class PostSchema(Schema):
     created_at = fields.DateTime(dump_only=True)
     
     
-user_schema = UserSchema()
-post_schema = PosrSchema()
+user_schema = UserSchema(many=True)
+post_schema = PosrSchema(many=True)
