@@ -1,4 +1,4 @@
-from flask import g
+from flask import g, jsonify
 from flask.ext import restful
 
 from server import api, db, flask_bcrypt, auth

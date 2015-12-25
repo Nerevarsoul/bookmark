@@ -15,4 +15,4 @@ class PostSchema(Schema):
     
     
 user_schema = UserSchema(many=True)
-post_schema = PosrSchema(many=True)
+post_schema = PostSchema(many=True)

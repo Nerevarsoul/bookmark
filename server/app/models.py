@@ -35,7 +35,7 @@ class Post(db.Model):
         return '<Post %r>' % self.title
         
         
-class Bookmate(db.model):
+class Bookmate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
     url = db.Column(db.Text)
@@ -43,12 +43,12 @@ class Bookmate(db.model):
     tag = db.Column(db.Integer, db.ForeignKey('tag.id'))
     
     
-class Tag(db.model):
+class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
     category = db.Column(db.Integer, db.ForeignKey('category.id'))
     
     
-class Category(db.model):
+class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
