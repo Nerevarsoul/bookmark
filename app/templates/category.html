@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form class="form-signin" role="form" method="post" action="">
+  {{ form.csrf_token }}
+  <p>
+    {{ form.name(placeholder="name") }}
+    <span class="error">
+      {% if form.name.errors %}
+        {% for error in form.name.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <button class="btn btn-sm btn-success" type="submit">Add new</button>
+</form>
+
+<div>
+    {% for category in categories %}
+        <p>{{ category.name }}</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

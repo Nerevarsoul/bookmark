@@ -2,7 +2,6 @@ import os
 
 from flask import Flask
 from flask.ext import restful
-from flask.ext.restful import reqparse, Api
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.httpauth import HTTPBasicAuth
@@ -11,6 +10,9 @@ basedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../')
 
 app = Flask(__name__)
 app.config.from_object('app.config')
+app.config['SESSION_TYPE'] = 'memcached'
+app.config['SECRET_KEY'] = 'super secret key'
+
 
 # flask-sqlalchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.sqlite')
